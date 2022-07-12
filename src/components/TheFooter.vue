@@ -31,10 +31,11 @@ const version = import.meta.env.PACKAGE_VERSION;
 
     <base-tooltip>
       <button btn @click="source.dumpAll()">
-        <div btn-icon i-mdi-folder-download />
+        <div v-if="!source.dirty" btn-icon i-mdi-folder-download />
+        <div v-else btn-icon color-red-500 i-mdi-folder-alert />
       </button>
       <template #tooltip>
-        <p>本地化</p>
+        <p>本地化{{ source.dirty ? " - 更改未保存" : "" }}</p>
       </template>
     </base-tooltip>
 

@@ -16,7 +16,7 @@ watch(fsSourceFiles, async (value) => {
     fsSourceFile.value = theFile;
     try {
       const archive = await uploadJSON<hole.Archive>(theFile);
-      source.fsArchive = archive;
+      await source.updateFsCache(archive);
       source.fsArchiveName = theFile.name;
       // console.log(archive);
       fileStatus.value = "ok";

@@ -3,6 +3,7 @@ import { $fetch } from "ohmyfetch";
 import dayjs from "dayjs";
 import pangu from "pangu";
 import { getEndpointImage } from "~/logic/endpoint";
+import { SourceMode } from "~/logic/source";
 
 const props = defineProps<{
   hole: hole.HoleEntry
@@ -30,8 +31,18 @@ const loadReply = async () => {
   }
 };
 
+const loadReplyDirty = async () => {
+  try {
+    await loadReply();
+    source.dirty = true;
+  }
+  catch (error: unknown) {
+    console.error(`failed to dirtily fetch ${props.hole.entry.id}'s replies: ${error}`);
+  }
+};
+
 watch(targetIsVisible, async (newVal, oldVal) => {
-  if (newVal && !oldVal && !source.replies.has(props.hole.entry.id))
+  if (newVal && !oldVal && source.mode === SourceMode.Server && !source.replies.has(props.hole.entry.id))
     loadReply();
 });
 
@@ -85,9 +96,14 @@ const showImage = () => {
         <p class="break-words">
           {{ pangu.spacing(hole.entry.text) }}
         </p>
-        <div v-if="!hasReplies" @click="loadReply()">
-          <div btn-icon i-mdi-connection />
-        </div>
+        <template v-if="!hasReplies">
+          <div v-if="source.mode === SourceMode.Server" @click="loadReply()">
+            <div btn-icon i-mdi-connection />
+          </div>
+          <div v-else-if="source.mode === SourceMode.Fs" @click="loadReplyDirty()">
+            <div btn-icon i-mdi-close-octagon />
+          </div>
+        </template>
       </div>
     </div>
     <div v-if="showReplies">
@@ -116,8 +132,13 @@ const showImage = () => {
           </div>
         </div>
       </template>
-      <div v-else class="shadow rounded p-3" @click="loadReply()">
-        回复加载失败，点击重试……
+      <div v-else class="shadow rounded p-3">
+        <div v-if="source.mode === SourceMode.Server" @click="loadReply()">
+          回复加载失败，点击重试……
+        </div>
+        <div v-else-if="source.mode === SourceMode.Fs" @click="loadReplyDirty()">
+          回复加载失败，点击尝试从服务器拉取……
+        </div>
       </div>
     </div>
   </div>

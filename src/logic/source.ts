@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { $fetch } from "ohmyfetch";
 import { defineStore } from "pinia";
+import { getFsArchive, setFsArchive } from "~/logic/cache";
 
 const FETCH_OPTIONS: Parameters<typeof $fetch>[1] = {
   retry: 3,
@@ -28,13 +29,14 @@ export const useSource = defineStore("source", {
   state: () => ({
     mode: useStorage<SourceMode>("source-mode", SourceMode.Server),
     token: useStorage("token", ""),
-    fsArchive: useStorage<hole.Archive>("fs-archive", { holes: [], replies: {}, images: {} }),
+    fsArchiveListener: useCounter(),
     fsArchiveName: useStorage("fs-archive-name", ""),
     holes: ref<hole.HoleEntry[]>([]),
     replies: ref<Map<number, hole.ReplyEntry[]>>(new Map()),
     images: ref<Map<number, string>>(new Map()),
     downloadErrors: ref<SourceDownloadErr[]>([]),
     status: ref(SourceStatus.Idle),
+    dirty: ref(false),
   }),
   actions: {
     async loadSource() {
@@ -55,6 +57,7 @@ export const useSource = defineStore("source", {
             break;
         }
         this.status = SourceStatus.Ok;
+        this.dirty = false;
       }
       catch (error: unknown) {
         this.status = SourceStatus.Err;
@@ -80,13 +83,22 @@ export const useSource = defineStore("source", {
       await Promise.allSettled(downloadProcess);
       this.status = SourceStatus.Ok;
     },
-    loadSourceFromFs() {
+    async loadSourceFromFs() {
       this.status = SourceStatus.Loading;
-      const { holes, replies } = this.fsArchive;
+      const { holes, replies } = await getFsArchive();
       this.holes = parseHoleEntries(holes);
       this.replies = new Map(Object.entries(replies).map(([id, archiveEntries]) => ([+id, parseReplyEntries(archiveEntries)])));
       this.images = new Map();
       this.status = SourceStatus.Ok;
+    },
+    async updateFsCache(archive: hole.Archive) {
+      try {
+        await setFsArchive(archive);
+        this.loadSource();
+      }
+      catch (err: unknown) {
+        console.error(err);
+      }
     },
     dumpAll() {
       const dumpedHoles = dumpHoleEntries(this.holes);

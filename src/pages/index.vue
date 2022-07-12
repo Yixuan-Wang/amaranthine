@@ -2,13 +2,10 @@
 import { SourceStatus } from "~/logic/source";
 
 const source = useSource();
-const { mode, token, fsArchive } = storeToRefs(source);
+const { mode, token } = storeToRefs(source);
 onBeforeMount(() => source.loadSource());
 watch(mode, () => source.loadSource());
 watch(token, () => {
-  source.loadSource();
-});
-watch(fsArchive, (value) => {
   source.loadSource();
 });
 </script>
