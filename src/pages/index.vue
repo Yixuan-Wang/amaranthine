@@ -11,9 +11,21 @@ watch(token, () => {
 </script>
 
 <template>
-  <div class="mx-auto max-w-[60ch] p-4 pb-[5em] lg:pb-4">
-    <div v-if="source.status === SourceStatus.Idle">
-      <div>请先配置数据源……</div>
+  <div id="flow" class="mx-auto max-w-[60ch] p-4 pb-[5em] lg:pb-4">
+    <div
+      v-if="source.status === SourceStatus.Idle"
+      class="card p-3 text-center"
+    >
+      <div>
+        请先配置数据源，或
+        <a
+          href="https://github.com/Yixuan-Wang/amaranthine/blob/master/docs/README.md"
+          rel="noreferrer"
+          target="_blank"
+          class="font-bold underline"
+        >查看文档</a>
+        寻求帮助
+      </div>
     </div>
     <div
       v-else-if="
@@ -27,8 +39,15 @@ watch(token, () => {
         :key="entry.entry.id"
         :hole="entry"
       />
-      <div class="rounded shadow p-3 text-center">到头了……</div>
+      <div class="card p-3 text-center">
+        到头了……
+      </div>
     </div>
-    <div v-else-if="source.status === SourceStatus.Loading">加载中</div>
+    <div
+      v-else-if="source.status === SourceStatus.Loading"
+      class="card p-3 text-center"
+    >
+      加载中
+    </div>
   </div>
 </template>

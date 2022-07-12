@@ -9,7 +9,7 @@ const toggleModal = () => { modalOpen.value = !modalOpen.value; };
 
 const { load, unload } = useStyleTag(`#pane {
   pointer-events: auto !important;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(var(--color-foreground), 0.5);
 }`, { immediate: false });
 
 watch(modalOpen, (val) => {

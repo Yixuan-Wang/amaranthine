@@ -1,0 +1,58 @@
+{
+  "default": {
+    "name": "舫上日落",
+    "author": "蔡翔宇",
+    "image": "sunset.jpg",
+    "palette": {
+      "light": [191, 170, 184], "dark": [63, 97, 140]
+    }
+  },
+  "spring": {
+    "name": "春",
+    "author": "蔡翔宇",
+    "image": "spring.jpg",
+    "palette": {
+      "light": [212, 176, 217], "dark": [114, 109, 140]
+    }
+  },
+  "summer": {
+    "name": "夏",
+    "author": "蔡翔宇",
+    "image": "summer.jpg",
+    "palette": {
+      "light": [217, 186, 130], "dark": [50, 64, 36]
+    }
+  },
+  "autumn": {
+    "name": "秋",
+    "author": "蔡翔宇",
+    "image": "autumn.jpg",
+    "palette": {
+      "light": [242, 183, 5], "dark": [166, 28, 28]
+    }
+  },
+  "winter": {
+    "name": "冬",
+    "author": "蔡翔宇",
+    "image": "winter.jpg",
+    "palette": {
+      "light": [208, 211, 217], "dark": [116, 136, 140]
+    }
+  },
+  "kezhen": {
+    "name": "克桢楼",
+    "author": "蔡翔宇",
+    "image": "kezhen.jpg",
+    "palette": {
+      "light": [242, 159, 5], "dark": [1, 52, 64]
+    }
+  },
+  "lakeside": {
+    "name": "岸芷",
+    "author": "蔡翔宇",
+    "image": "lakeside.jpg",
+    "palette": {
+      "light": [217, 82, 4], "dark": [52, 108, 115]
+    }
+  }
+}

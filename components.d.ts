@@ -11,8 +11,8 @@ declare module '@vue/runtime-core' {
     CardHole: typeof import('./src/components/CardHole.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    SettingsSource: typeof import('./src/components/SettingsSource.vue')['default']
     TheFooter: typeof import('./src/components/TheFooter.vue')['default']
+    TheSettings: typeof import('./src/components/TheSettings.vue')['default']
   }
 }
 

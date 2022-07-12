@@ -66,7 +66,7 @@ const showImage = () => {
   <div class="relative flex flex-col gap-2">
     <div
       ref="target"
-      class="w-auto rounded shadow text-fg bg-blue-400 dark:bg-blue-500"
+      class="w-auto card text-fg bg-acc/75"
       @click="showReplies = !showReplies"
     >
       <img
@@ -112,7 +112,7 @@ const showImage = () => {
           <div
             v-for="reply in source.replies.get(hole.entry.id)!"
             :key="reply.entry.id"
-            class="shadow rounded"
+            class="card bg-bgd/75"
           >
             <div class="p-3 flex flex-col gap-2">
               <div class="flex flex-row text-xs gap-2">
@@ -127,17 +127,17 @@ const showImage = () => {
               </p>
             </div>
           </div>
-          <div class="shadow rounded p-3" @click="showReplies = false">
-            折叠回复
+          <div class="card bg-bgd/75 p-3" @click="showReplies = false">
+            <span i-mdi-eye-off />&nbsp;折叠回复
           </div>
         </div>
       </template>
-      <div v-else class="shadow rounded p-3">
+      <div v-else class="card bg-bgd/75 p-3 ">
         <div v-if="source.mode === SourceMode.Server" @click="loadReply()">
-          回复加载失败，点击重试……
+          <span i-mdi-connection />&nbsp;回复加载失败，点击重试……
         </div>
         <div v-else-if="source.mode === SourceMode.Fs" @click="loadReplyDirty()">
-          回复加载失败，点击尝试从服务器拉取……
+          <span i-mdi-close-octagon />&nbsp;回复加载失败，点击尝试从服务器拉取……
         </div>
       </div>
     </div>

@@ -1,5 +1,11 @@
 <script setup lang="ts">
+const settings = useSettings();
+const { backgroundImgUrl, accentColor } = storeToRefs(settings);
 
+const backgroundImgVar = useCssVar("--background-image");
+const accentColorVar = useCssVar("--color-accent");
+syncRef(backgroundImgUrl, backgroundImgVar);
+syncRef(accentColor, accentColorVar);
 </script>
 
 <template>

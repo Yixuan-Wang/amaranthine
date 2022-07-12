@@ -5,7 +5,6 @@ body,
   min-height: 100%;
   margin: 0;
   padding: 0;
-  background-color: var(--color-background);
 }
 
 body {
@@ -22,11 +21,25 @@ body {
 }
 
 html.dark {
-  --color-background: #333333;
-  --color-foreground: #EEEEEE;
+  /* --color-background: #404040; */
+  --color-background: 64, 64, 64;
+  /* --color-foreground: #F1F5F9; */
+  --color-foreground: 241, 245, 249;
 }
 
 html.light {
-  --color-background: #EEEEEE;
-  --color-foreground: #121212;
+  /* --color-background: #EEEEEE; */
+  --color-background: 238, 238, 238;
+  /* --color-foreground: #121212; */
+  --color-foreground: 18, 18, 18;
+}
+
+html.dark {
+  background: fixed center / cover no-repeat var(--background-image) rgba(0, 0, 0, 0.5) !important;
+  background-blend-mode: darken;
+}
+
+html.light{
+  background: fixed center / cover no-repeat var(--background-image) rgba(255, 255, 255, 0.5) !important;
+  background-blend-mode: lighten;
 }

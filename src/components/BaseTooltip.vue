@@ -6,11 +6,11 @@ const tooltipOpen = ref(false);
 </script>
 
 <template>
-  <span class="relative inline-flex justify-center" :class="props.containerClass">
+  <span class="relative inline-flex" :class="props.containerClass ?? 'justify-center'">
     <span @mouseover="tooltipOpen = true" @mouseleave="tooltipOpen = false">
       <slot />
     </span>
-    <div v-if="tooltipOpen" class="tooltip-inner rounded shadow bg-bgd fg-fgd px-2 py-1 text-sm">
+    <div v-if="tooltipOpen" class="tooltip-inner card bg-bgd fg-fgd px-2 py-1 text-sm">
       <slot name="tooltip" />
     </div>
   </span>

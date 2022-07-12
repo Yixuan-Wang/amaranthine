@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center">
+  <div id="flow" class="text-center">
     Not Found
   </div>
 </template>

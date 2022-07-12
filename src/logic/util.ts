@@ -16,3 +16,29 @@ export function uploadJSON<T>(file: File): Promise<T> {
     fileReader.readAsText(file);
   });
 }
+
+export function downloadImage(imageUrl: string) {
+  return new Promise((resolve, reject) => {
+    const downloadedImg = new Image();
+    downloadedImg.crossOrigin = "Anonymous";
+    downloadedImg.onload = () => {
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
+
+      canvas.width = downloadedImg.width;
+      canvas.height = downloadedImg.height;
+
+      context!.drawImage(downloadedImg, 0, 0);
+
+      try {
+        const result = canvas.toDataURL("image/png");
+        resolve(result);
+      }
+      catch (err) {
+        console.error(`Error: ${err}`);
+        reject(err);
+      }
+    };
+    downloadedImg.src = imageUrl;
+  });
+}

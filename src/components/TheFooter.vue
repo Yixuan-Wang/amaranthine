@@ -6,7 +6,7 @@ const version = import.meta.env.PACKAGE_VERSION;
 </script>
 
 <template>
-  <nav class="text-xl inline-flex gap-3 rounded shadow p-3 bg-bgd">
+  <nav class="text-xl inline-flex gap-3 card p-3 bg-bgd">
     <base-tooltip>
       <button btn @click="settings.nextColorMode()">
         <div v-if="settings.colorMode === 'auto'" btn-icon i-mdi-brightness-auto />
@@ -22,7 +22,7 @@ const version = import.meta.env.PACKAGE_VERSION;
       <base-modal container-class="justify-center">
         <div btn-icon i-mdi-settings />
         <template #modal>
-          <settings-source />
+          <the-settings />
         </template>
       </base-modal>
       <template #tooltip>
@@ -45,28 +45,14 @@ const version = import.meta.env.PACKAGE_VERSION;
       </template>
     </base-tooltip>
 
-    <base-tooltip>
+    <base-tooltip container-class="justify-end">
       <button btn>
         <div btn-icon i-mdi-information />
       </button>
       <template #tooltip>
-        <p class="font-mono">v{{ version }}</p>
-      </template>
-    </base-tooltip>
-
-    <base-tooltip>
-      <button btn>
-        <a
-          btn-icon
-          i-mdi-github
-          rel="noreferrer"
-          href="https://github.com/Yixuan-Wang/amaranthine"
-          target="_blank"
-          title="GitHub"
-        />
-      </button>
-      <template #tooltip>
-        <p>源代码</p>
+        <p class="font-mono">
+          v{{ version }}
+        </p>
       </template>
     </base-tooltip>
   </nav>
