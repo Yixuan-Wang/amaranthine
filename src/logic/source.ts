@@ -38,6 +38,11 @@ export const useSource = defineStore("source", {
     status: ref(SourceStatus.Idle),
     dirty: ref(false),
   }),
+  getters: {
+    hasAllReplies: (state) => {
+      return state.holes.map(({ entry }) => entry.id).every(id => state.replies.has(id));
+    },
+  },
   actions: {
     async loadSource() {
       this.status = SourceStatus.Loading;
